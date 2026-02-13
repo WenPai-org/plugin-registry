@@ -1,0 +1,18 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpslug",
+  "name": "WPSlug",
+  "type": "plugin",
+  "repo": "WenPai-org/wpslug",
+  "main_file": "wpslug.php",
+  "description": "Advanced slug management plugin with Chinese Pinyin support and SEO optimization.",
+  "homepage": "https://wpslug.com",
+  "author": "WPSlug.com",
+  "author_uri": "https://wpslug.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.7.1",
+  "tags": ["slug", "seo", "pinyin"],
+  "active": true
+}
