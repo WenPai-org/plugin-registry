@@ -1,0 +1,141 @@
+# 文派统一插件发布 CI Workflow
+# 用法：复制到插件仓库 .forgejo/workflows/release.yml
+# 触发：push tag v*
+name: Release Plugin
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  # 从仓库名推断 slug（WenPai-org/wpslug → wpslug）
+  PLUGIN_SLUG: ${{ github.event.repository.name }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          VERSION="${TAG#v}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Tag: $TAG, Version: $VERSION"
+
+      - name: Detect main plugin file
+        id: detect
+        run: |
+          # 查找包含 "Plugin Name:" 的 PHP 文件
+          MAIN_FILE=$(grep -rl "Plugin Name:" *.php 2>/dev/null | head -1)
+          if [ -z "$MAIN_FILE" ]; then
+            echo "::error::No main plugin file found"
+            exit 1
+          fi
+          echo "main_file=$MAIN_FILE" >> $GITHUB_OUTPUT
+          echo "Main file: $MAIN_FILE"
+
+      - name: Validate version consistency
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          MAIN_FILE="${{ steps.detect.outputs.main_file }}"
+
+          # 检查主文件 Version header
+          HEADER_VERSION=$(grep -i "^[[:space:]]*\*[[:space:]]*Version:" "$MAIN_FILE" | head -1 | sed 's/.*Version:[[:space:]]*//' | tr -d '[:space:]')
+          if [ "$HEADER_VERSION" != "$VERSION" ]; then
+            echo "::error::Version mismatch: tag=$VERSION, header=$HEADER_VERSION"
+            exit 1
+          fi
+
+          # 检查 readme.txt Stable tag（如果存在）
+          if [ -f "readme.txt" ]; then
+            STABLE_TAG=$(grep -i "^Stable tag:" readme.txt | head -1 | sed 's/.*Stable tag:[[:space:]]*//' | tr -d '[:space:]')
+            if [ "$STABLE_TAG" != "$VERSION" ]; then
+              echo "::error::Stable tag mismatch: tag=$VERSION, readme=$STABLE_TAG"
+              exit 1
+            fi
+          fi
+
+          echo "Version consistency check passed: $VERSION"
+
+      - name: PHP Lint
+        run: |
+          find . -name "*.php" -not -path "./vendor/*" -not -path "./node_modules/*" | xargs -I {} php -l {} | grep -v "No syntax errors"
+          echo "PHP lint passed"
+
+      - name: Build ZIP
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          SLUG="${{ env.PLUGIN_SLUG }}"
+          ZIP_NAME="${SLUG}-${VERSION}.zip"
+
+          # 创建临时目录
+          mkdir -p /tmp/build/${SLUG}
+
+          # 复制文件，排除开发文件
+          rsync -a --exclude='.git' \
+                   --exclude='.github' \
+                   --exclude='.forgejo' \
+                   --exclude='.gitignore' \
+                   --exclude='.gitattributes' \
+                   --exclude='.editorconfig' \
+                   --exclude='.env*' \
+                   --exclude='node_modules' \
+                   --exclude='tests' \
+                   --exclude='phpunit.xml*' \
+                   --exclude='phpcs.xml*' \
+                   --exclude='phpstan.neon*' \
+                   --exclude='composer.json' \
+                   --exclude='composer.lock' \
+                   --exclude='package.json' \
+                   --exclude='package-lock.json' \
+                   --exclude='Gruntfile.js' \
+                   --exclude='webpack.config.js' \
+                   --exclude='*.md' \
+                   --exclude='LICENSE' \
+                   --exclude='Makefile' \
+                   ./ /tmp/build/${SLUG}/
+
+          # 保留 readme.txt（不排除）
+          # rsync 已经包含了 readme.txt
+
+          # 打包
+          cd /tmp/build
+          zip -r /tmp/${ZIP_NAME} ${SLUG}/
+          echo "zip_path=/tmp/${ZIP_NAME}" >> $GITHUB_OUTPUT
+          echo "zip_name=${ZIP_NAME}" >> $GITHUB_OUTPUT
+          echo "Built: ${ZIP_NAME} ($(du -h /tmp/${ZIP_NAME} | cut -f1))"
+        id: build
+
+      - name: Calculate SHA-256
+        id: checksum
+        run: |
+          ZIP_PATH="${{ steps.build.outputs.zip_path }}"
+          ZIP_NAME="${{ steps.build.outputs.zip_name }}"
+          SHA256=$(sha256sum "$ZIP_PATH" | cut -d' ' -f1)
+          echo "$SHA256  $ZIP_NAME" > "${ZIP_PATH}.sha256"
+          echo "sha256=$SHA256" >> $GITHUB_OUTPUT
+          echo "SHA-256: $SHA256"
+
+      - name: Create Release
+        uses: actions/forgejo-release@v2
+        with:
+          direction: upload
+          url: https://feicode.com
+          token: ${{ secrets.RELEASE_TOKEN }}
+          tag: ${{ steps.version.outputs.tag }}
+          title: ${{ steps.version.outputs.tag }}
+          release-dir: /tmp/
+          release-notes: |
+            ## ${{ env.PLUGIN_SLUG }} ${{ steps.version.outputs.tag }}
+
+            ### Checksums
+
+            | File | SHA-256 |
+            |------|---------|
+            | ${{ steps.build.outputs.zip_name }} | `${{ steps.checksum.outputs.sha256 }}` |
