@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://updates.wenpai.org/schema/plugin-registry-v1.json",
+  "title": "WenPai Plugin Registry Entry",
+  "description": "文派插件注册表条目 schema",
+  "type": "object",
+  "required": [
+    "slug",
+    "name",
+    "type",
+    "repo",
+    "main_file"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,99}$",
+      "description": "插件唯一标识符（URL 安全，小写字母+数字+连字符）"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "插件显示名称"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["plugin", "theme"],
+      "description": "包类型"
+    },
+    "repo": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$",
+      "description": "Forgejo 仓库路径（owner/repo）"
+    },
+    "main_file": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+\\.php$",
+      "description": "插件主文件名"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "插件简短描述"
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "插件主页 URL"
+    },
+    "author": {
+      "type": "string",
+      "description": "作者名称"
+    },
+    "author_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "作者主页 URL"
+    },
+    "license": {
+      "type": "string",
+      "description": "许可证标识符（SPDX）"
+    },
+    "requires_wp": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)*$",
+      "description": "最低 WordPress 版本"
+    },
+    "requires_php": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)*$",
+      "description": "最低 PHP 版本"
+    },
+    "tested_wp": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)*$",
+      "description": "已测试的 WordPress 版本"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 5,
+      "description": "分类标签（最多 5 个）"
+    },
+    "icons": {
+      "type": "object",
+      "properties": {
+        "1x": { "type": "string", "format": "uri" },
+        "2x": { "type": "string", "format": "uri" },
+        "svg": { "type": "string", "format": "uri" }
+      },
+      "description": "插件图标 URL"
+    },
+    "banners": {
+      "type": "object",
+      "properties": {
+        "low": { "type": "string", "format": "uri" },
+        "high": { "type": "string", "format": "uri" }
+      },
+      "description": "插件横幅 URL"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "是否在更新通道中激活"
+    }
+  },
+  "additionalProperties": false
+}
