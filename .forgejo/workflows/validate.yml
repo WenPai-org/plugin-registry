@@ -1,0 +1,85 @@
+# plugin-registry PR 校验 CI
+name: Validate Registry
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          pip install jsonschema
+
+      - name: Validate JSON schema
+        run: |
+          ERRORS=0
+          for f in plugins/*.json; do
+            echo "Validating $f..."
+            python3 -c "
+import json, jsonschema, sys
+with open('schema.json') as s:
+    schema = json.load(s)
+with open('$f') as d:
+    data = json.load(d)
+try:
+    jsonschema.validate(data, schema)
+    print('  OK')
+except jsonschema.ValidationError as e:
+    print(f'  FAIL: {e.message}')
+    sys.exit(1)
+" || ERRORS=$((ERRORS+1))
+          done
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::$ERRORS file(s) failed validation"
+            exit 1
+          fi
+
+      - name: Check slug uniqueness
+        run: |
+          python3 -c "
+import json, glob, sys
+slugs = {}
+for f in sorted(glob.glob('plugins/*.json')):
+    with open(f) as fh:
+        data = json.load(fh)
+    slug = data['slug']
+    if slug in slugs:
+        print(f'DUPLICATE slug \"{slug}\": {slugs[slug]} and {f}')
+        sys.exit(1)
+    expected = f'plugins/{slug}.json'
+    if f != expected:
+        print(f'FILENAME MISMATCH: {f} should be {expected}')
+        sys.exit(1)
+    slugs[slug] = f
+print(f'All {len(slugs)} slugs are unique and filenames match')
+"
+
+      - name: Build aggregated index
+        run: |
+          python3 -c "
+import json, glob
+registry = {'version': 1, 'plugins': {}, 'themes': {}}
+for f in sorted(glob.glob('plugins/*.json')):
+    with open(f) as fh:
+        data = json.load(fh)
+    slug = data['slug']
+    pkg_type = data.get('type', 'plugin')
+    target = 'plugins' if pkg_type == 'plugin' else 'themes'
+    registry[target][slug] = data
+with open('dist/registry.json', 'w') as out:
+    json.dump(registry, out, indent=2, ensure_ascii=False)
+print(f'Built registry: {len(registry[\"plugins\"])} plugins, {len(registry[\"themes\"])} themes')
+"
+
+      - name: Upload index artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: registry
+          path: dist/registry.json
