@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://updates.wenpai.org/schema/plugin-registry-v1.json",
+  "$id": "https://updates.wenpai.net/schema/plugin-registry-v1.json",
   "title": "WenPai Plugin Registry Entry",
-  "description": "文派插件注册表条目 schema",
+  "description": "文派插件注册表条目 schema (v1.1.0)",
   "type": "object",
   "required": [
     "slug",
@@ -29,7 +29,7 @@
     "type": {
       "type": "string",
       "enum": ["plugin", "theme"],
-      "description": "包类型"
+      "description": "包类型（当前仅支持 plugin，theme 计划中）"
     },
     "repo": {
       "type": "string",
@@ -39,7 +39,7 @@
     "main_file": {
       "type": "string",
       "pattern": "^[a-z0-9-]+\\.php$",
-      "description": "插件主文件名"
+      "description": "插件主文件名（仅 plugin 类型需要）"
     },
     "description": {
       "type": "string",
@@ -62,7 +62,7 @@
     },
     "license": {
       "type": "string",
-      "description": "许可证标识符（SPDX）"
+      "description": "许可证标识符（SPDX 格式，如 GPL-2.0-or-later）"
     },
     "requires_wp": {
       "type": "string",
@@ -77,30 +77,58 @@
     "tested_wp": {
       "type": "string",
       "pattern": "^[0-9]+(\\.[0-9]+)*$",
-      "description": "已测试的 WordPress 版本"
+      "description": "已测试的最高 WordPress 版本"
     },
     "tags": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 50
+      },
       "maxItems": 5,
+      "uniqueItems": true,
       "description": "分类标签（最多 5 个）"
     },
     "icons": {
       "type": "object",
       "properties": {
-        "1x": { "type": "string", "format": "uri" },
-        "2x": { "type": "string", "format": "uri" },
-        "svg": { "type": "string", "format": "uri" }
+        "1x": { "type": "string", "format": "uri", "description": "128x128 图标 URL" },
+        "2x": { "type": "string", "format": "uri", "description": "256x256 高清图标 URL" },
+        "svg": { "type": "string", "format": "uri", "description": "SVG 矢量图标 URL" }
       },
-      "description": "插件图标 URL"
+      "description": "插件图标 URL（如未指定，云桥将从仓库 .wordpress-org/ 目录自动读取）"
     },
     "banners": {
       "type": "object",
       "properties": {
-        "low": { "type": "string", "format": "uri" },
-        "high": { "type": "string", "format": "uri" }
+        "low": { "type": "string", "format": "uri", "description": "772x250 横幅 URL" },
+        "high": { "type": "string", "format": "uri", "description": "1544x500 高清横幅 URL" }
       },
-      "description": "插件横幅 URL"
+      "description": "插件横幅 URL（如未指定，云桥将从仓库 .wordpress-org/ 目录自动读取）"
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "src": { "type": "string", "format": "uri", "description": "截图 URL" },
+          "caption": { "type": "string", "maxLength": 200, "description": "截图说明" }
+        },
+        "required": ["src"]
+      },
+      "maxItems": 10,
+      "description": "插件截图列表"
+    },
+    "changelog_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "变更日志 URL（指向 CHANGELOG.md 或 Forgejo Releases）"
+    },
+    "support_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "支持/问题反馈 URL"
     },
     "active": {
       "type": "boolean",
