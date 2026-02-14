@@ -1,6 +1,6 @@
 # 文派插件发布规范 v1.0
 
-> 适用于所有通过文派云桥（updates.wenpai.org）分发的 WordPress 插件和主题。
+> 适用于所有通过文派云桥（updates.wenpai.net）分发的 WordPress 插件和主题。
 
 ## 1. 版本号规范
 
@@ -40,13 +40,13 @@ Git Tag v1.2.3 → Version: 1.2.3 → Stable tag: 1.2.3
  * License:     GPL v2 or later
  * Text Domain: {slug}
  * Domain Path: /languages
- * Update URI:  https://updates.wenpai.org
+ * Update URI:  https://updates.wenpai.net
  * Requires at least: 6.0
  * Requires PHP: 7.4
  */
 ```
 
-`Update URI` 是云桥的关键字段，WordPress 5.8+ 会据此触发 `update_plugins_updates.wenpai.org` filter。
+`Update URI` 是云桥的关键字段，WordPress 5.8+ 会据此触发 `update_plugins_updates.wenpai.net` filter。
 
 ## 3. ZIP 打包规范
 
@@ -126,8 +126,8 @@ composer.json  composer.lock（除非运行时需要 autoload）
   "tested_wp": "6.7.1",
   "tags": ["slug", "seo", "pinyin"],
   "icons": {
-    "1x": "https://updates.wenpai.org/assets/plugins/wpslug/icon-128x128.png",
-    "2x": "https://updates.wenpai.org/assets/plugins/wpslug/icon-256x256.png"
+    "1x": "https://updates.wenpai.net/assets/plugins/wpslug/icon-128x128.png",
+    "2x": "https://updates.wenpai.net/assets/plugins/wpslug/icon-256x256.png"
   }
 }
 ```
