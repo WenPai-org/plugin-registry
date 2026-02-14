@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpbridge",
+  "name": "WPBridge",
+  "type": "plugin",
+  "repo": "WenPai-org/wpbridge",
+  "main_file": "wpbridge.php",
+  "description": "自定义源桥接器 - 让用户完全控制 WordPress 的外部连接",
+  "homepage": "https://wenpai.org/plugins/wpbridge",
+  "author": "WenPai.org",
+  "author_uri": "https://wenpai.org",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "5.9",
+  "requires_php": "7.4",
+  "tested_wp": "6.7.1",
+  "tags": [
+    "updates",
+    "bridge",
+    "custom-source"
+  ],
+  "active": true
+}
