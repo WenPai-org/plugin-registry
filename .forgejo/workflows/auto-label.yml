@@ -1,0 +1,119 @@
+name: Auto Label
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  auto-label:
+    if: github.repository != 'WenPai-org/ci-workflows'
+    runs-on: linux-arm64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 自动打标签
+        env:
+          FORGEJO_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          API_BASE="${GITHUB_SERVER_URL:-https://feicode.com}/api/v1"
+          OWNER="${GITHUB_REPOSITORY%/*}"
+          REPO="${GITHUB_REPOSITORY#*/}"
+          LABELS=""
+
+          # 获取 PR 变更文件
+          FILES=$(curl -s -H "Authorization: token $FORGEJO_TOKEN" \
+            "$API_BASE/repos/$OWNER/$REPO/pulls/$PR_NUMBER/files" | \
+            python3 -c "import json,sys; [print(f['filename']) for f in json.load(sys.stdin)]" 2>/dev/null)
+
+          # 根据文件类型打标签
+          echo "$FILES" | grep -qE '\.php$' && LABELS="$LABELS,php"
+          echo "$FILES" | grep -qE '\.(js|ts|tsx|jsx)$' && LABELS="$LABELS,frontend"
+          echo "$FILES" | grep -qE '\.(css|scss|less)$' && LABELS="$LABELS,style"
+          echo "$FILES" | grep -qE '\.go$' && LABELS="$LABELS,go"
+          echo "$FILES" | grep -qE '\.(yml|yaml)$' && LABELS="$LABELS,ci/cd"
+          echo "$FILES" | grep -qE '(composer\.|package\.json|go\.mod)' && LABELS="$LABELS,dependencies"
+          echo "$FILES" | grep -qE '\.(md|txt|rst)$' && LABELS="$LABELS,documentation"
+          echo "$FILES" | grep -qE '(Dockerfile|docker-compose)' && LABELS="$LABELS,docker"
+
+          # 根据 PR 大小打标签
+          ADDITIONS=$(curl -s -H "Authorization: token $FORGEJO_TOKEN" \
+            "$API_BASE/repos/$OWNER/$REPO/pulls/$PR_NUMBER" | \
+            python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('additions',0)+d.get('deletions',0))" 2>/dev/null)
+
+          if [ "$ADDITIONS" -lt 10 ] 2>/dev/null; then
+            LABELS="$LABELS,size/S"
+          elif [ "$ADDITIONS" -lt 100 ] 2>/dev/null; then
+            LABELS="$LABELS,size/M"
+          elif [ "$ADDITIONS" -lt 500 ] 2>/dev/null; then
+            LABELS="$LABELS,size/L"
+          else
+            LABELS="$LABELS,size/XL"
+          fi
+
+          # 去掉开头逗号
+          LABELS="${LABELS#,}"
+
+          if [ -z "$LABELS" ]; then
+            echo "无需添加标签"
+            exit 0
+          fi
+
+          echo "添加标签: $LABELS"
+
+          # 确保标签存在，不存在则创建
+          IFS=',' read -ra LABEL_ARRAY <<< "$LABELS"
+          LABEL_IDS="["
+          for LABEL in "${LABEL_ARRAY[@]}"; do
+            # 查找标签
+            LABEL_ID=$(curl -s -H "Authorization: token $FORGEJO_TOKEN" \
+              "$API_BASE/repos/$OWNER/$REPO/labels?limit=50" | \
+              python3 -c "
+          import json,sys
+          labels=json.load(sys.stdin)
+          for l in labels:
+              if l['name']=='$LABEL':
+                  print(l['id'])
+                  break
+          " 2>/dev/null)
+
+            # 标签不存在则创建
+            if [ -z "$LABEL_ID" ]; then
+              # 根据标签类型选颜色
+              case "$LABEL" in
+                php)            COLOR="#4F5D95" ;;
+                frontend)       COLOR="#f1e05a" ;;
+                go)             COLOR="#00ADD8" ;;
+                ci/cd)          COLOR="#0075ca" ;;
+                dependencies)   COLOR="#0366d6" ;;
+                documentation)  COLOR="#0075ca" ;;
+                docker)         COLOR="#0db7ed" ;;
+                style)          COLOR="#e34c26" ;;
+                size/S)         COLOR="#009900" ;;
+                size/M)         COLOR="#FFCC00" ;;
+                size/L)         COLOR="#FF6600" ;;
+                size/XL)        COLOR="#CC0000" ;;
+                *)              COLOR="#ededed" ;;
+              esac
+              LABEL_ID=$(curl -s -X POST -H "Authorization: token $FORGEJO_TOKEN" \
+                "$API_BASE/repos/$OWNER/$REPO/labels" \
+                -H "Content-Type: application/json" \
+                -d "{\"name\":\"$LABEL\",\"color\":\"$COLOR\"}" | \
+                python3 -c "import json,sys; print(json.load(sys.stdin).get('id',''))" 2>/dev/null)
+            fi
+
+            [ -n "$LABEL_ID" ] && LABEL_IDS="$LABEL_IDS$LABEL_ID,"
+          done
+          LABEL_IDS="${LABEL_IDS%,}]"
+
+          # 添加标签到 PR
+          curl -s -X POST -H "Authorization: token $FORGEJO_TOKEN" \
+            "$API_BASE/repos/$OWNER/$REPO/issues/$PR_NUMBER/labels" \
+            -H "Content-Type: application/json" \
+            -d "{\"labels\":$LABEL_IDS}" > /dev/null
+
+          echo "标签添加完成"
