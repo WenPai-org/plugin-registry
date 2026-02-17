@@ -1,0 +1,119 @@
+name: Stale Issue/PR 清理
+
+on:
+  schedule:
+    - cron: '0 5 * * 1'  # 每周一凌晨 5 点
+  workflow_dispatch:
+
+jobs:
+  stale-cleanup:
+    if: github.repository != 'WenPai-org/ci-workflows'
+    runs-on: linux-arm64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 清理过期 Issue 和 PR
+        env:
+          FORGEJO_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          API_BASE="${GITHUB_SERVER_URL:-https://feicode.com}/api/v1"
+          OWNER="${GITHUB_REPOSITORY%/*}"
+          REPO="${GITHUB_REPOSITORY#*/}"
+          NOW=$(date +%s)
+
+          # 受保护的标签，带这些标签的不处理
+          PROTECTED_LABELS="pinned|help-wanted|bug|security|wontfix"
+
+          # Issue: 60 天无活动标记 stale，再过 14 天关闭
+          STALE_DAYS=60
+          CLOSE_DAYS=74
+          # PR: 30 天无活动标记 stale，再过 14 天关闭
+          PR_STALE_DAYS=30
+          PR_CLOSE_DAYS=44
+
+          process_items() {
+            local TYPE=$1  # issues 或 pulls
+            local STALE=$2
+            local CLOSE=$3
+
+            PAGE=1
+            while true; do
+              if [ "$TYPE" = "issues" ]; then
+                ITEMS=$(curl -s -H "Authorization: token $FORGEJO_TOKEN" \
+                  "$API_BASE/repos/$OWNER/$REPO/issues?state=open&type=issues&page=$PAGE&limit=50")
+              else
+                ITEMS=$(curl -s -H "Authorization: token $FORGEJO_TOKEN" \
+                  "$API_BASE/repos/$OWNER/$REPO/issues?state=open&type=pulls&page=$PAGE&limit=50")
+              fi
+
+              COUNT=$(echo "$ITEMS" | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" 2>/dev/null)
+              [ "$COUNT" = "0" ] || [ -z "$COUNT" ] && break
+
+              echo "$ITEMS" | python3 -c "
+          import json, sys, time
+
+          items = json.load(sys.stdin)
+          now = $NOW
+          stale_seconds = $STALE * 86400
+          close_seconds = $CLOSE * 86400
+          protected = set('$PROTECTED_LABELS'.split('|'))
+
+          for item in items:
+              number = item['number']
+              title = item['title']
+              labels = [l['name'] for l in item.get('labels', [])]
+
+              # 跳过受保护标签
+              if protected & set(labels):
+                  continue
+
+              updated = item['updated_at']
+              # 解析 ISO 时间
+              from datetime import datetime, timezone
+              dt = datetime.fromisoformat(updated.replace('Z', '+00:00'))
+              updated_ts = int(dt.timestamp())
+              age = now - updated_ts
+
+              if age > close_seconds:
+                  print(f'CLOSE|{number}|{title}')
+              elif age > stale_seconds and 'stale' not in labels:
+                  print(f'STALE|{number}|{title}')
+          " | while IFS='|' read -r ACTION NUMBER TITLE; do
+                if [ "$ACTION" = "STALE" ]; then
+                  echo "标记 #$NUMBER 为 stale: $TITLE"
+                  # 添加 stale 标签
+                  curl -s -X POST -H "Authorization: token $FORGEJO_TOKEN" \
+                    "$API_BASE/repos/$OWNER/$REPO/issues/$NUMBER/labels" \
+                    -H "Content-Type: application/json" \
+                    -d '{"labels":["stale"]}' > /dev/null
+                  # 添加评论
+                  curl -s -X POST -H "Authorization: token $FORGEJO_TOKEN" \
+                    "$API_BASE/repos/$OWNER/$REPO/issues/$NUMBER/comments" \
+                    -H "Content-Type: application/json" \
+                    -d "{\"body\":\"此 ${TYPE%s} 已超过 $STALE 天无活动，已标记为 stale。如果 14 天内无新活动将自动关闭。\"}" > /dev/null
+                elif [ "$ACTION" = "CLOSE" ]; then
+                  echo "关闭 #$NUMBER: $TITLE"
+                  curl -s -X PATCH -H "Authorization: token $FORGEJO_TOKEN" \
+                    "$API_BASE/repos/$OWNER/$REPO/issues/$NUMBER" \
+                    -H "Content-Type: application/json" \
+                    -d '{"state":"closed"}' > /dev/null
+                  curl -s -X POST -H "Authorization: token $FORGEJO_TOKEN" \
+                    "$API_BASE/repos/$OWNER/$REPO/issues/$NUMBER/comments" \
+                    -H "Content-Type: application/json" \
+                    -d "{\"body\":\"此 ${TYPE%s} 因长期无活动已自动关闭。如需继续讨论请重新打开。\"}" > /dev/null
+                fi
+              done
+
+              PAGE=$((PAGE + 1))
+            done
+          }
+
+          echo "=== 处理 Issues (${STALE_DAYS}天stale / ${CLOSE_DAYS}天关闭) ==="
+          process_items "issues" $STALE_DAYS $CLOSE_DAYS
+
+          echo "=== 处理 PRs (${PR_STALE_DAYS}天stale / ${PR_CLOSE_DAYS}天关闭) ==="
+          process_items "pulls" $PR_STALE_DAYS $PR_CLOSE_DAYS
+
+          echo "清理完成"
