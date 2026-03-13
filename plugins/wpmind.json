@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpmind",
+  "name": "WPMind",
+  "type": "plugin",
+  "repo": "WenPai-org/wpmind",
+  "main_file": "wpmind.php",
+  "description": "AI-powered WordPress assistant for site management and optimization.",
+  "homepage": "https://wenpai.org/plugins/wpmind",
+  "author": "WenPai.org",
+  "author_uri": "https://wenpai.org",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.4",
+  "requires_php": "8.1",
+  "tested_wp": "6.8",
+  "tags": [
+    "ai",
+    "assistant",
+    "management"
+  ],
+  "active": true
+}
