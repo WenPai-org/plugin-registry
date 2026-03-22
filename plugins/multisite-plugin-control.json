@@ -1,0 +1,21 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-plugin-control",
+  "name": "Multisite Plugin Control",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-plugin-control",
+  "main_file": "multisite-plugin-control.php",
+  "description": "Manage plugin access permissions across your entire WordPress multisite network with enhanced UI and statistics.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-plugin-control",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com",
+  "license": "GPL v2 or later",
+  "requires_wp": "5.9",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "plugins"
+  ],
+  "active": true
+}

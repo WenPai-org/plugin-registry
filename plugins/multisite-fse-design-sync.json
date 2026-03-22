@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-fse-design-sync",
+  "name": "Multisite FSE Design Sync",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-fse-design-sync",
+  "main_file": "multisite-fse-design-sync.php",
+  "description": "Synchronize FSE design framework across sites in a WordPress multisite network.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-fse-design-sync",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "sync",
+    "block-editor"
+  ],
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-batch-create",
+  "name": "Multisite Batch Create",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-batch-create",
+  "main_file": "multisite-batch-create.php",
+  "description": "Create hundred or thousands of sites and users automatically by simply uploading a csv text file - subdomain and user creation automation has never been so easy.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-batch-create",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com/",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "8.0",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "batch"
+  ],
+  "active": true
+}

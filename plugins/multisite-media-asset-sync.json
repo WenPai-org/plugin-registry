@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-media-asset-sync",
+  "name": "Multisite Media Asset Sync",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-media-asset-sync",
+  "main_file": "multisite-media-asset-sync.php",
+  "description": "Sync site icons, custom logos, login page logos, default featured images, background images, header images, WooCommerce placeholder images, and Open Graph images across a multisite network.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-media-asset-sync",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "sync",
+    "media"
+  ],
+  "active": true
+}

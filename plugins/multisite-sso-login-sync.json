@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-sso-login-sync",
+  "name": "Multisite SSO Login Sync",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-sso-login-sync",
+  "main_file": "multisite-sso-login-sync.php",
+  "description": "Enable Single Sign-On functionality across WordPress multisite network with synchronization features and cross-domain support.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-sso-login-sync",
+  "author": "WPMultisite.com",
+  "author_uri": "https://WPMultisite.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.7.2",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "sync",
+    "users"
+  ],
+  "active": true
+}

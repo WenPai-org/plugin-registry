@@ -1,0 +1,21 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-global-styles-sync",
+  "name": "Multisite Global Styles Sync",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-global-styles-sync",
+  "main_file": "multisite-global-styles-sync.php",
+  "description": "Synchronizes global styles settings across sites in a WordPress multisite network.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-global-styles-sync",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com",
+  "license": "GPL v2 or later",
+  "requires_wp": "5.9",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "sync"
+  ],
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-network-site-directory",
+  "name": "Multisite Network Site Directory",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-network-site-directory",
+  "main_file": "multisite-network-site-directory.php",
+  "description": "Advanced multisite network visualization and management solution with intelligent layouts, powerful search, and enterprise-grade performance optimization.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-network-site-directory",
+  "author": "WPMultisite.com",
+  "author_uri": "https://WPMultisite.com",
+  "license": "GPL-2.0+",
+  "requires_wp": "5.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "network"
+  ],
+  "active": true
+}

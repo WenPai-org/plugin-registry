@@ -1,0 +1,21 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-default-theme",
+  "name": "Multisite Default Theme",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-default-theme",
+  "main_file": "multisite-default-theme.php",
+  "description": "Allows network administrators to select a custom default theme for new site signups in a multisite network.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-default-theme",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com",
+  "license": "GPL v2 or later",
+  "requires_wp": "5.9",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "theme"
+  ],
+  "active": true
+}

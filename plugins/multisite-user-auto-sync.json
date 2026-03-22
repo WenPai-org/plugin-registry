@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-user-auto-sync",
+  "name": "Multisite User Auto Sync",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-user-auto-sync",
+  "main_file": "multisite-user-auto-sync.php",
+  "description": "WordPress Multisite User Sync/Unsync plugin can sync/unsync users from one site to the other sites  in your WordPress Multisite Network.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-user-auto-sync",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com",
+  "license": "GPL v2 or later",
+  "requires_wp": "5.9",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "sync",
+    "users"
+  ],
+  "active": true
+}

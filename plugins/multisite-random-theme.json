@@ -1,0 +1,21 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-random-theme",
+  "name": "Multisite Random Theme",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-random-theme",
+  "main_file": "multisite-random-theme.php",
+  "description": "Randomly assigns an enabled theme when creating a new site in a WordPress multisite network.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-random-theme",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com",
+  "license": "GPL v2 or later",
+  "requires_wp": "5.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "theme"
+  ],
+  "active": true
+}

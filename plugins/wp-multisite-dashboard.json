@@ -1,0 +1,21 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wp-multisite-dashboard",
+  "name": "WP Multisite Dashboard",
+  "type": "plugin",
+  "repo": "WPMultisite/wp-multisite-dashboard",
+  "main_file": "wp-multisite-dashboard.php",
+  "description": "Essential dashboard widgets for WordPress multisite administrators",
+  "homepage": "https://wpmultisite.com/plugins/wp-multisite-dashboard",
+  "author": "WPMultisite.com",
+  "author_uri": "https://WPMultisite.com",
+  "license": "GPLv2+",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "dashboard"
+  ],
+  "active": true
+}

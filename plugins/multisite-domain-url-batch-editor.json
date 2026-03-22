@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-domain-url-batch-editor",
+  "name": "多站点URL管理器",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-domain-url-batch-editor",
+  "main_file": "multisite-domain-url-batch-editor.php",
+  "description": "一个用于管理WordPress多站点网络中所有站点URL的插件，支持批量编辑和修改站点地址。",
+  "homepage": "https://wpmultisite.com/plugins/multisite-domain-url-batch-editor",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "domain",
+    "batch"
+  ],
+  "active": true
+}

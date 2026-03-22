@@ -1,0 +1,20 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wp-multinetwork-switcher",
+  "name": "WP Multi-Network Switcher",
+  "type": "plugin",
+  "repo": "WPMultisite/wp-multinetwork-switcher",
+  "main_file": "wp-multinetwork-switcher.php",
+  "description": "Display current network information in admin bar and provide network switching functionality for WP Multi Network environments.",
+  "homepage": "https://wpmultisite.com/plugins/wp-multinetwork-switcher",
+  "author": "WPMultiNetwork.com",
+  "author_uri": "https://wpmultinetwork.com",
+  "license": "GPL v2 or later",
+  "requires_wp": "5.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "network"
+  ],
+  "active": true
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-reusable-blocks-sync",
+  "name": "Multisite Reusable Blocks Sync",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-reusable-blocks-sync",
+  "main_file": "multisite-reusable-blocks-sync.php",
+  "description": "Advanced synchronization of reusable blocks across WordPress Multisite network with enhanced controls and monitoring.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-reusable-blocks-sync",
+  "author": "WPMultisite.com",
+  "author_uri": "https://wpmultisite.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "5.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "sync",
+    "block-editor",
+    "blocks"
+  ],
+  "active": true
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-settings-sync",
+  "name": "Multisite Settings Sync",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-settings-sync",
+  "main_file": "multisite-settings-sync.php",
+  "description": "Synchronizes main site settings to all subsites in a multisite network.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-settings-sync",
+  "author": "WPMultisite.com",
+  "author_uri": "https://WPMultisite.com",
+  "license": "GPL v2 or later",
+  "requires_wp": "6.7.2",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "sync",
+    "settings"
+  ],
+  "active": true
+}

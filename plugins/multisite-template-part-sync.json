@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "multisite-template-part-sync",
+  "name": "Multisite Template Part Sync",
+  "type": "plugin",
+  "repo": "WPMultisite/multisite-template-part-sync",
+  "main_file": "multisite-template-part-sync.php",
+  "description": "Advanced synchronization of FSE templates and template parts across WordPress multisite network with enhanced controls and monitoring.",
+  "homepage": "https://wpmultisite.com/plugins/multisite-template-part-sync",
+  "author": "WPMultisite.com",
+  "author_uri": "https://WPMultisite.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "multisite",
+    "sync",
+    "templates"
+  ],
+  "active": true
+}
