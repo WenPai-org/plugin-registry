@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpcaptcha",
+  "name": "文派验证码",
+  "type": "plugin",
+  "repo": "WenPai-org/wpcaptcha",
+  "main_file": "wpcaptcha.php",
+  "description": "WordPress 表单验证码",
+  "homepage": "https://wpcaptcha.com",
+  "author": "WenPai",
+  "author_uri": "https://wpcaptcha.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.7.1",
+  "tags": [
+    "captcha",
+    "security"
+  ],
+  "icons": {
+    "1x": "https://updates.wenpai.net/assets/wpcaptcha/icon-128x128.png",
+    "2x": "https://updates.wenpai.net/assets/wpcaptcha/icon-256x256.png",
+    "svg": "https://updates.wenpai.net/assets/wpcaptcha/icon-256x256.svg"
+  },
+  "banners": {
+    "low": "https://updates.wenpai.net/assets/wpcaptcha/banner-772x250.png",
+    "high": "https://updates.wenpai.net/assets/wpcaptcha/banner-1544x500.png"
+  },
+  "active": true
+}

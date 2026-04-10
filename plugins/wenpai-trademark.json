@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wenpai-trademark",
+  "name": "文派商标",
+  "type": "plugin",
+  "repo": "WenPai-org/wenpai-trademark",
+  "main_file": "wenpai-trademark.php",
+  "description": "自动添加商标和版权符号",
+  "author": "WenPai",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.7.1",
+  "tags": [
+    "trademark",
+    "copyright"
+  ],
+  "icons": {
+    "1x": "https://updates.wenpai.net/assets/wenpai-trademark/icon-128x128.png",
+    "2x": "https://updates.wenpai.net/assets/wenpai-trademark/icon-256x256.png",
+    "svg": "https://updates.wenpai.net/assets/wenpai-trademark/icon-256x256.svg"
+  },
+  "banners": {
+    "low": "https://updates.wenpai.net/assets/wenpai-trademark/banner-772x250.png",
+    "high": "https://updates.wenpai.net/assets/wenpai-trademark/banner-1544x500.png"
+  },
+  "active": true
+}

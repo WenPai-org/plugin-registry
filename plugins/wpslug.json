@@ -1,18 +1,29 @@
 {
   "$schema": "../schema.json",
   "slug": "wpslug",
-  "name": "WPSlug",
+  "name": "文派素格",
   "type": "plugin",
   "repo": "WenPai-org/wpslug",
   "main_file": "wpslug.php",
-  "description": "Advanced slug management plugin with Chinese Pinyin support and SEO optimization.",
-  "homepage": "https://wpslug.com",
+  "description": "WordPress 文章别名 slug 拼音和翻译自动生成",
   "author": "WPSlug.com",
-  "author_uri": "https://wpslug.com",
   "license": "GPL-2.0-or-later",
   "requires_wp": "6.0",
   "requires_php": "7.4",
   "tested_wp": "6.7.1",
-  "tags": ["slug", "seo", "pinyin"],
+  "tags": [
+    "slug",
+    "seo",
+    "pinyin"
+  ],
+  "icons": {
+    "1x": "https://updates.wenpai.net/assets/wpslug/icon-128x128.png",
+    "2x": "https://updates.wenpai.net/assets/wpslug/icon-256x256.png",
+    "svg": "https://updates.wenpai.net/assets/wpslug/icon-256x256.svg"
+  },
+  "banners": {
+    "low": "https://updates.wenpai.net/assets/wpslug/banner-772x250.png",
+    "high": "https://updates.wenpai.net/assets/wpslug/banner-1544x500.png"
+  },
   "active": true
 }

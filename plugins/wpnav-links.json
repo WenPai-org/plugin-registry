@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpnav-links",
+  "name": "文派导航",
+  "type": "plugin",
+  "repo": "WenPai-org/wpnav-links",
+  "main_file": "wpnav-links.php",
+  "description": "网址链接导航管理",
+  "homepage": "https://wpnav.com",
+  "author": "WenPai",
+  "author_uri": "https://wpnav.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.7.1",
+  "tags": [
+    "navigation",
+    "links"
+  ],
+  "icons": {
+    "1x": "https://updates.wenpai.net/assets/wpnav-links/icon-128x128.png",
+    "2x": "https://updates.wenpai.net/assets/wpnav-links/icon-256x256.png",
+    "svg": "https://updates.wenpai.net/assets/wpnav-links/icon-256x256.svg"
+  },
+  "banners": {
+    "low": "https://updates.wenpai.net/assets/wpnav-links/banner-772x250.png",
+    "high": "https://updates.wenpai.net/assets/wpnav-links/banner-1544x500.png"
+  },
+  "active": true
+}

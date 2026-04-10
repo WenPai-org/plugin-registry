@@ -1,18 +1,28 @@
 {
   "$schema": "../schema.json",
   "slug": "wp-woocommerce-pay",
-  "name": "WenPaiEPay",
+  "name": "文派易付",
   "type": "plugin",
   "repo": "WenPai-org/wp-woocommerce-pay",
   "main_file": "wp-woocommerce-pay.php",
-  "description": "文派易付：适用于 WooCommerce 商店的免签约易支付集成，支持支付宝、微信、QQ 钱包、USDT 等多种支付方式。",
-  "homepage": "https://feicode.com/WenPai-org/wp-woocommerce-pay",
-  "author": "文派开源",
-  "author_uri": "https://wenpai.org/",
+  "description": "WordPress 易支付插件",
+  "author": "WenPai",
   "license": "GPL-2.0-or-later",
-  "requires_wp": "5.0",
+  "requires_wp": "6.0",
   "requires_php": "7.4",
-  "tested_wp": "6.4",
-  "tags": ["woocommerce", "payment", "alipay", "wechat", "usdt"],
+  "tested_wp": "6.7.1",
+  "tags": [
+    "payment",
+    "woocommerce"
+  ],
+  "icons": {
+    "1x": "https://updates.wenpai.net/assets/wp-woocommerce-pay/icon-128x128.png",
+    "2x": "https://updates.wenpai.net/assets/wp-woocommerce-pay/icon-256x256.png",
+    "svg": "https://updates.wenpai.net/assets/wp-woocommerce-pay/icon-256x256.svg"
+  },
+  "banners": {
+    "low": "https://updates.wenpai.net/assets/wp-woocommerce-pay/banner-772x250.png",
+    "high": "https://updates.wenpai.net/assets/wp-woocommerce-pay/banner-1544x500.png"
+  },
   "active": true
 }

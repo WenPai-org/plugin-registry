@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpdate",
+  "name": "文派日历",
+  "type": "plugin",
+  "repo": "WenPai-org/wpdate",
+  "main_file": "wpdate.php",
+  "description": "WordPress 显示中国农历日期",
+  "homepage": "https://wpdate.com",
+  "author": "WenPai",
+  "author_uri": "https://wpdate.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.7.1",
+  "tags": [
+    "calendar",
+    "lunar"
+  ],
+  "icons": {
+    "1x": "https://updates.wenpai.net/assets/wpdate/icon-128x128.png",
+    "2x": "https://updates.wenpai.net/assets/wpdate/icon-256x256.png",
+    "svg": "https://updates.wenpai.net/assets/wpdate/icon-256x256.svg"
+  },
+  "banners": {
+    "low": "https://updates.wenpai.net/assets/wpdate/banner-772x250.png",
+    "high": "https://updates.wenpai.net/assets/wpdate/banner-1544x500.png"
+  },
+  "active": true
+}

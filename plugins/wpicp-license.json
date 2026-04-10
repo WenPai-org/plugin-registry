@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpicp-license",
+  "name": "文派备案号管理",
+  "type": "plugin",
+  "repo": "WenPai-org/wpicp-license",
+  "main_file": "wpicp-license.php",
+  "description": "在前台显示 ICP 备案许可证",
+  "author": "WenPai",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.7.1",
+  "tags": [
+    "icp",
+    "license"
+  ],
+  "icons": {
+    "1x": "https://updates.wenpai.net/assets/wpicp-license/icon-128x128.png",
+    "2x": "https://updates.wenpai.net/assets/wpicp-license/icon-256x256.png",
+    "svg": "https://updates.wenpai.net/assets/wpicp-license/icon-256x256.svg"
+  },
+  "banners": {
+    "low": "https://updates.wenpai.net/assets/wpicp-license/banner-772x250.png",
+    "high": "https://updates.wenpai.net/assets/wpicp-license/banner-1544x500.png"
+  },
+  "active": true
+}
