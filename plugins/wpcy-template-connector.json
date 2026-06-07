@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpcy-template-connector",
+  "name": "WPCY Template Connector",
+  "type": "plugin",
+  "repo": "kekechong/wpcy-template-connector",
+  "main_file": "wpcy-template-connector.php",
+  "description": "Connects Elementor template library to templates.wpcy.net and routes Elementor template imports through the WPCY template repository.",
+  "homepage": "https://wpcy.net",
+  "author": "WPCY",
+  "author_uri": "https://wpcy.net",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "elementor",
+    "templates",
+    "connector"
+  ],
+  "active": true
+}
