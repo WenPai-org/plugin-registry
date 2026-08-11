@@ -1,0 +1,20 @@
+{
+  "$schema": "../schema.json",
+  "slug": "minimal-admin",
+  "name": "Minimal Admin",
+  "type": "plugin",
+  "repo": "WenPai-org/minimal-admin",
+  "main_file": "minimal-admin.php",
+  "description": "在经典 wp-admin 旁提供现代化的 WordPress 管理界面。",
+  "homepage": "https://feicode.com/WenPai-org/minimal-admin",
+  "author": "WenPai.org",
+  "author_uri": "https://wenpai.org",
+  "license": "MIT",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tags": [
+    "admin",
+    "dashboard"
+  ],
+  "active": true
+}
