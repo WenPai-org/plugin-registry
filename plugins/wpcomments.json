@@ -1,0 +1,21 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpcomments",
+  "name": "WenPai Comments",
+  "type": "plugin",
+  "repo": "WenPai-org/wpcomments",
+  "main_file": "wpcomments.php",
+  "description": "Modular comment controls and moderation tools for WordPress.",
+  "homepage": "https://wpcomments.com",
+  "author": "WPComments.com",
+  "author_uri": "https://wpcomments.com",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "5.9",
+  "requires_php": "7.4",
+  "tags": [
+    "comments",
+    "moderation",
+    "spam"
+  ],
+  "active": true
+}
