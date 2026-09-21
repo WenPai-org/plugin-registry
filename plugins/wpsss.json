@@ -1,0 +1,18 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wpsss",
+  "name": "文派智储 WPSSS",
+  "type": "plugin",
+  "repo": "WenPai-org/wpsss",
+  "main_file": "wpsss.php",
+  "description": "媒体进桶，页面仍在源站。阿里云 OSS、腾讯云 COS、华为 OBS、七牛 KODO、火山 TOS 与 S3 兼容全家；WooCommerce 付费下载、大文件分片、桶间搬运。",
+  "homepage": "https://wpcy.com/document/start-guide",
+  "author": "文派",
+  "author_uri": "https://wpcy.com/",
+  "license": "Apache-2.0",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": ["object-storage", "oss", "cdn", "offload"],
+  "active": true
+}
