@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema.json",
+  "slug": "wenpai-static-host",
+  "name": "Wenpai Static Host",
+  "type": "plugin",
+  "repo": "WenPai-org/wenpai-static-host",
+  "main_file": "wenpai-static-host.php",
+  "description": "Company-only. Rewrite front-end static URLs to {stem}.s.wptea.com without changing siteurl/home.",
+  "homepage": "https://wpcy.com/wenpai-static-host",
+  "author": "WenPai",
+  "author_uri": "https://wpcy.com/",
+  "license": "GPL-2.0-or-later",
+  "requires_wp": "6.0",
+  "requires_php": "7.4",
+  "tested_wp": "6.8",
+  "tags": [
+    "static",
+    "cdn",
+    "rewrite"
+  ],
+  "active": true,
+  "version": "1.0.1"
+}
