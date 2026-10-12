@@ -1,20 +1,22 @@
 {
-  "$schema": "../schema.json",
-  "slug": "wpcomments",
-  "name": "WenPai Comments",
-  "type": "plugin",
-  "repo": "WenPai-org/wpcomments",
-  "main_file": "wpcomments.php",
-  "description": "Modular comment controls and moderation tools for WordPress.",
-  "author": "WenPai",
-  "license": "GPL-2.0-or-later",
-  "requires_wp": "5.9",
-  "requires_php": "7.4",
-  "tested_wp": "6.7.1",
-  "tags": [
-    "comments",
-    "moderation",
-    "spam"
-  ],
-  "active": true
+    "$schema": "../schema.json",
+    "slug": "wpcomments",
+    "name": "WenPai Comments",
+    "type": "plugin",
+    "repo": "WenPai-org/wpcomments",
+    "main_file": "wpcomments.php",
+    "description": "Modular comment controls and moderation tools for WordPress.",
+    "author": "WenPai",
+    "license": "GPL-2.0-or-later",
+    "requires_wp": "5.9",
+    "requires_php": "7.4",
+    "tested_wp": "6.7.1",
+    "tags": [
+        "comments",
+        "moderation",
+        "spam"
+    ],
+    "active": true,
+    "homepage": "https://wpcy.com/wpcomments",
+    "author_uri": "https://wpcy.com/wpcomments"
 }

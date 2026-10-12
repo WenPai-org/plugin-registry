@@ -1,20 +1,20 @@
 {
-  "$schema": "../schema.json",
-  "slug": "woo-alipay",
-  "name": "Woo Alipay",
-  "type": "plugin",
-  "repo": "Weixiaoduo/woo-alipay",
-  "main_file": "woo-alipay.php",
-  "description": "Accept Alipay payments in WooCommerce with F2F, WAP, Huabei, fund-auth, mini-program and cross-border modules.",
-  "author": "Weixiaoduo",
-  "license": "GPL-3.0-only",
-  "requires_wp": "6.6",
-  "requires_php": "7.4",
-  "tested_wp": "6.7.1",
-  "tags": [
-    "woocommerce",
-    "alipay",
-    "payment-gateway"
-  ],
-  "active": true
+    "$schema": "../schema.json",
+    "slug": "woo-alipay",
+    "name": "Woo Alipay",
+    "type": "plugin",
+    "repo": "Weixiaoduo/woo-alipay",
+    "main_file": "woo-alipay.php",
+    "description": "Accept Alipay payments in WooCommerce with F2F, WAP, Huabei, fund-auth, mini-program and cross-border modules.",
+    "author": "Weixiaoduo",
+    "license": "GPL-3.0-only",
+    "requires_wp": "6.6",
+    "requires_php": "7.4",
+    "tested_wp": "6.7.1",
+    "tags": [
+        "woocommerce",
+        "alipay",
+        "payment-gateway"
+    ],
+    "active": true
 }
