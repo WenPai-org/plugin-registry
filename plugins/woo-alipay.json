@@ -16,7 +16,5 @@
         "alipay",
         "payment-gateway"
     ],
-    "active": true,
-    "homepage": "https://wpcy.com/woo-alipay",
-    "author_uri": "https://wpcy.com/woo-alipay"
+    "active": true
 }
